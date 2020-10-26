@@ -5,7 +5,7 @@ const app = express();
 
 
 const connection = mysql.createConnection({
-    host:'172.17.0.2',
+    host:'mysql-container',
     user: 'root',
     password: 'davidfico',
     database: 'produtos'
@@ -20,7 +20,7 @@ app.get('/products', (req, res) => {
         };
         res.send(results.map(item => ({name: item.name, price:item.price})));
     })
-    res.send("Olá mundo!")
+    //res.send("Olá mundo!")
 })
 
 app.listen(9001, '0.0.0.0', () => {

@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-    $result = file_get_contents("https://node-container:9001/products");
+    $result = file_get_contents("http://localhost:9001/products");
     $products = json_decode($result);
 ?>
 <table>

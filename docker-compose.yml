@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+    db:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: mysql-container
+        # build: ./api/db
+        environment: 
+            MYSQL_DATABASE: produtos
+            MYSQL_ROOT_PASSWORD: davidfico
+        volumes:
+            - ./api/db/data:/var/lib/mysql
+        restart: always
+        
+    api:
+        build: ./api
+        command: npm start
+        ports: 
+            - 9001:9001
+        volumes: 
+            - ./api:/usr/app
+        container_name: node-container
+        restart: always
+        depends_on: 
+            - db
+    web:
+        image: php:7.2-apache
+        #build: ./website
+        ports:
+            - 8888:8888
+        restart: always
+        volumes:
+            - ./website:/var/www/html
+        depends_on:
+            - db
+            - api
